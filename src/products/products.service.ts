@@ -1,6 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { Product } from './product.model';
 
-@Injectable
+@Injectable()
 export class ProductsService {
-	addProduct(): any {}
+	private products: Product[] = [];
+
+	addProduct(product: Product): Product {
+		this.products.push(product);
+		return product;
+	}
+
+	getProducts(): Product[] {
+		return this.products;
+	}
 }
