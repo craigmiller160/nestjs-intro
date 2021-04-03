@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './product.model';
 
@@ -7,7 +7,7 @@ export class ProductsController {
 	constructor(private readonly productsService: ProductsService) {}
 
 	@Post()
-	addProduct(product: Product): Product {
+	addProduct(@Body() product: Product): Product {
 		return this.productsService.addProduct(product);
 	}
 
