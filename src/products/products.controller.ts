@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	ParseIntPipe,
+	Post,
+	Put
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './product.model';
 
@@ -23,7 +32,10 @@ export class ProductsController {
 	}
 
 	@Put(':id')
-	updateProduct(@Param('id', ParseIntPipe) id: number, @Body() product: Product): Product {
+	updateProduct(
+		@Param('id', ParseIntPipe) id: number,
+		@Body() product: Product
+	): Product {
 		// TODO return 204 if not found
 		return this.productsService.updateProduct(id, product);
 	}
