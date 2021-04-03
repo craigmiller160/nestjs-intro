@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from './product.model';
-import { nanoid } from 'nanoid';
 
 @Injectable()
 export class ProductsService {
 	private readonly products: Product[] = [];
+	private idCounter = 0;
 
 	constructor() {
 		this.products.push({
-			id: nanoid(),
+			id: ++this.idCounter,
 			title: 'Original Product',
 			description: 'A cool product',
 			price: 10
@@ -16,20 +16,20 @@ export class ProductsService {
 	}
 
 	addProduct(product: Product): Product {
-		product.id = nanoid();
+		product.id = ++this.idCounter;
 		this.products.push(product);
 		return product;
 	}
 
 	getProducts(): Product[] {
-		return this.products;
+		return this.products.slice();
 	}
 
-	getProduct(id: string): Product {
+	getProduct(id: number): Product {
 		return this.products.find((product) => product.id === id);
 	}
 
-	updateProduct(id: string, product: Product): Product {
+	updateProduct(id: number, product: Product): Product {
 		product.id = id;
 		const existingIndex = this.products.findIndex(
 			(product) => product.id === id
@@ -41,7 +41,7 @@ export class ProductsService {
 		return undefined;
 	}
 
-	deleteProduct(id: string): Product {
+	deleteProduct(id: number): Product {
 		const existingIndex = this.products.findIndex(
 			(product) => product.id === id
 		);
